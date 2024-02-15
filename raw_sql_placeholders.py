@@ -11,20 +11,20 @@ def main() -> None:
     cur = con.cursor()
 
     raw_sql = """
-	SELECT 
-		c.id, 
-		c.first_name, 
-		SUM(i.total) AS total
-	FROM Invoice i 
-	LEFT JOIN Customer c ON i.customer_id = c.id
-	GROUP BY c.id, c.first_name
-	ORDER BY total DESC
-	LIMIT :limit;
-	"""
+    SELECT 
+        c.id, 
+        c.first_name, 
+        SUM(i.total) AS total
+    FROM Invoice i 
+    LEFT JOIN Customer c ON i.customer_id = c.id
+    GROUP BY c.id, c.first_name
+    ORDER BY total DESC
+    LIMIT :limit;
+    """
     
-	placeholder = {
+    placeholder = {
         "limit": number_of_top_customers
-	}
+    }
 
     for row in cur.execute(raw_sql, placeholder):
         print(row)
